@@ -29,6 +29,7 @@ const NeuroChatPanel = () => {
         body: JSON.stringify({ messages: newMessages }),
       });
       const data = await response.json();
+      console.log("GPT response:", data); // Add this line
 
       if (data.choices && data.choices.length > 0) {
         const botReply = data.choices[0].message.content;
