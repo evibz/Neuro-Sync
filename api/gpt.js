@@ -1,5 +1,10 @@
-// /api/chat.js (for Vercel Serverless Function)
 export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const { messages } = req.body;
+
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -8,7 +13,7 @@ export default async function handler(req, res) {
     },
     body: JSON.stringify({
       model: 'gpt-3.5-turbo',
-      messages: req.body.messages,
+      messages,
     }),
   });
 
