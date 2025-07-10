@@ -3,30 +3,26 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  try {
-    const { messages } = req.body;
+  const { messages } = req.body;
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+  try {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'HTTP-Referer': 'https://yourdomain.vercel.app', // Optional but recommended
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model: 'meta-llama/llama-3-70b-instruct',
         messages,
       }),
     });
 
     const data = await response.json();
-    
-    if (data.error) {
-      console.error("OpenAI API error:", data.error);
-      return res.status(500).json({ error: data.error.message || 'OpenAI error' });
-    }
-
     res.status(200).json(data);
   } catch (err) {
-    console.error("Server error:", err);
-    res.status(500).json({ error: 'Server error' });
+    console.error("Llama API error:", err);
+    res.status(500).json({ error: 'Failed to get response from Llama 3' });
   }
+}
