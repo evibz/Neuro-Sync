@@ -5,10 +5,6 @@ export default async function handler(req, res) {
 
   const { messages } = req.body;
 
-  if (!messages || !Array.isArray(messages)) {
-    return res.status(400).json({ error: 'Invalid request body. "messages" must be an array.' });
-  }
-
   try {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -24,15 +20,13 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // Debugging: log API errors if any
     if (!response.ok) {
       console.error('OpenAI API Error:', data);
-      return res.status(response.status).json({ error: data });
+      return res.status(500).json({ error: 'OpenAI API error', details: data });
     }
 
     res.status(200).json(data);
   } catch (error) {
-    console.error('GPT Proxy Error:', error);
-    res.status(500).json({ error: 'Internal server error while contacting OpenAI.' });
+    console.error('API Route Error:', error);
+    res.status(500).json({ error: 'Server error', details: error.message });
   }
-}
