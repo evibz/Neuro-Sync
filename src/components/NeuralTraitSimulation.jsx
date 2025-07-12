@@ -59,29 +59,58 @@ const NeuralTraitSimulation = forwardRef((_, ref) => {
         Neural Trait Profile
       </h2>
 
-      {traits.map(({ name, value }, i) => (
-        <div key={name}>
-          <div className="flex justify-between mb-1 text-white font-medium">
-            <span>{name}</span>
-            <span>{value}%</span>
-          </div>
+      {traits.map(({ name, value }, i) => {
+        const isPowerUp = value >= 85;
+        return (
+          <div key={name}>
+            <div className="flex justify-between mb-1 text-white font-medium">
+              <span className="flex items-center gap-2">
+                {name}
+                {isPowerUp && (
+                  <motion.span
+                    className="text-yellow-400 text-lg"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: [0, 1.3, 1], rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 0.6 }}
+                    title="Exceptional Trait!"
+                  >
+                    🔥
+                  </motion.span>
+                )}
+              </span>
+              <span>{value}%</span>
+            </div>
 
-          <div className="w-full bg-white/20 rounded-full h-5 overflow-hidden">
-            <motion.div
-              className="h-5 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 shadow-lg"
-              initial={{ width: 0 }}
-              animate={{ width: `${value}%` }}
-              transition={{ duration: 0.8, delay: i * 0.2 }}
-            >
-              {/* Trait-specific animated wrapper */}
+            <div className="w-full bg-white/20 rounded-full h-5 overflow-hidden relative">
+              {/* Trait Bar */}
               <motion.div
-                className="h-full w-full"
-                {...getAnimationProps(name)}
-              />
-            </motion.div>
+                className={`h-5 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 shadow-lg ${
+                  isPowerUp ? 'ring-2 ring-yellow-400 animate-pulse' : ''
+                }`}
+                initial={{ width: 0 }}
+                animate={{ width: `${value}%` }}
+                transition={{ duration: 0.8, delay: i * 0.2 }}
+              >
+                {/* Inner animated effect */}
+                <motion.div
+                  className="h-full w-full"
+                  {...getAnimationProps(name)}
+                />
+              </motion.div>
+
+              {/* Optional animated glow overlay */}
+              {isPowerUp && (
+                <motion.div
+                  className="absolute inset-0 rounded-full bg-yellow-300/10 pointer-events-none"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: [0, 0.3, 0], scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 });

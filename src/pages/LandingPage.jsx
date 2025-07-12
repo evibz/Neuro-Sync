@@ -40,7 +40,7 @@ const LandingPage = () => {
   const [showStartButton, setShowStartButton] = useState(false);
   const audioRef = useRef(null);
 
-  const introText = 'Initializing Neuro Sync OS...';
+  const introText = 'Innitializing.........Neuro Sync.........Root OS.....';
 
   useEffect(() => {
     if (!hasInteracted) {

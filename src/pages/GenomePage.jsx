@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import NeuralTraitSimulation from '../components/NeuralTraitSimulation';
 import GenomeUploader from '../components/GenomeUploader';
 import DnaCanvas from '../components/DnaCanvas';
-import Footer from '../components/Footer';
 
 // Animation Variants
 const containerVariants = {
