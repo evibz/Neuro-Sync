@@ -5,7 +5,7 @@ import {
   FaBrain,
   FaRobot,
   FaMicrophone,
-  FaUserAstronaut,
+  FaMemory,
   FaDna,
   FaCogs, // 🧠 New icon for Neuro Augmentation
 } from 'react-icons/fa';
@@ -50,6 +50,12 @@ const DashboardPage = () => {
       title: 'Neuro Augmentation',
       description: 'Upgrade mental performance with AI-powered tools.',
       link: '/neuro-augmentation',
+    },
+        {
+      icon: FaMemory,
+      title: 'Dream Weaver',
+      description: 'Tabulate and Stitch your dreams',
+      link: '/dream-weave',
     },
   ];
 

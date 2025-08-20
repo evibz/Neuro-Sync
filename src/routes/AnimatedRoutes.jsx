@@ -8,6 +8,7 @@ import DashboardPage from '../pages/DashboardPage';
 import GenomePage from '../pages/GenomePage';
 import CognitiveSyncPage from '../pages/CognitiveSyncPage';
 import VoiceInteractionPage from '../pages/VoiceInteractionPage';
+import DreamWeave from '../pages/DreamWeave';
 import NeuroAugmentationPage from '../pages/NeuroAugmentationPage'; // ✅ Added
 import TestPage from '../pages/TestPage';
 
@@ -57,6 +58,22 @@ const AnimatedRoutes = () => {
                 transition={pageTransition}
               >
                 <DashboardPage />
+              </motion.div>
+            </Layout>
+          }
+                  />
+        <Route
+          path="/dream-weave"
+          element={
+            <Layout>
+              <motion.div
+                variants={pageVariants}
+                initial="initial"
+                animate="in"
+                exit="out"
+                transition={pageTransition}
+              >
+                <DreamWeave />
               </motion.div>
             </Layout>
           }
